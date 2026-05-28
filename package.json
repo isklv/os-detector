@@ -1,0 +1,12 @@
+{
+  "name": "os-detector",
+  "version": "1.0.0",
+  "description": "Lightweight client-side OS detection — sets data-os on <html> for conditional content",
+  "main": "dist/os-detector.js",
+  "scripts": {
+    "build": "node build.js",
+    "demo": "npx http-server demo -p 3000 -o"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}

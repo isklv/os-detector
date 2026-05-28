@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OS Detector — Демо</title>
+  <script src="../dist/os-detector.js"><\/script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container { max-width: 640px; margin: 0 auto; }
+
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #6e6e73; margin-bottom: 2rem; }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge-os { background: #e8f0fe; color: #1a73e8; }
+    .badge-device { background: #fce8e6; color: #d93025; }
+    .badge-platform { background: #e6f4ea; color: #188038; }
+
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; }
+    td:first-child { color: #6e6e73; width: 40%; }
+    td:last-child { font-weight: 600; }
+
+    /* === OS-specific content (the main use case) === */
+
+    .os-ios, .os-android, .os-windows, .os-macos, .os-linux { display: none; }
+    [data-os="ios"] .os-ios { display: block; }
+    [data-os="android"] .os-android { display: block; }
+    [data-os="windows"] .os-windows { display: block; }
+    [data-os="macos"] .os-macos { display: block; }
+    [data-os="linux"] .os-linux { display: block; }
+
+    .app-block {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: #f5f5f7;
+    }
+    .app-block .icon { font-size: 2.5rem; }
+    .app-block .info { flex: 1; }
+    .app-block .info h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .app-block .info p { font-size: 0.85rem; color: #6e6e73; }
+    .app-block .btn {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      background: #1a73e8;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .code-block {
+      background: #1d1d1f;
+      color: #f5f5f7;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      margin-top: 0.75rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #86868b;
+      margin-bottom: 0.75rem;
+    }
+
+    .divider { height: 1px; background: #e5e5ea; margin: 2rem 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 OS Detector</h1>
+    <p class="subtitle">Легкий детектор ОС — один скрипт, условный контент без дублей страниц</p>
+
+    <!-- Detected OS -->
+    <div class="card">
+      <h2>Определено</h2>
+      <div id="badges"></div>
+      <table id="info-table"></table>
+    </div>
+
+    <!-- OS-specific content demo -->
+    <p class="section-label">Условный контент (CSS via data-os)</p>
+
+    <div class="card">
+      <div class="os-ios">
+        <div class="app-block">
+          <div class="icon">🍎</div>
+          <div class="info">
+            <h3>Скачайте на iPhone</h3>
+            <p>Доступно в App Store — iOS 15+</p>
+          </div>
+          <a href="#" class="btn">App Store</a>
+        </div>
+      </div>
+
+      <div class="os-android">
+        <div class="app-block">
+          <div class="icon">🤖</div>
+          <div class="info">
+            <h3>Скачайте на Android</h3>
+            <p>Доступно в Google Play — Android 8+</p>
+          </div>
+          <a href="#" class="btn">Google Play</a>
+        </div>
+      </div>
+
+      <div class="os-windows">
+        <div class="app-block">
+          <div class="icon">🪟</div>
+          <div class="info">
+            <h3>Версия для Windows</h3>
+            <p>Скачайте десктопное приложение</p>
+          </div>
+          <a href="#" class="btn">Скачать</a>
+        </div>
+      </div>
+
+      <div class="os-macos">
+        <div class="app-block">
+          <div class="icon">💻</div>
+          <div class="info">
+            <h3>Версия для Mac</h3>
+            <p>Доступно в Mac App Store</p>
+          </div>
+          <a href="#" class="btn">Mac App Store</a>
+        </div>
+      </div>
+
+      <div class="os-linux">
+        <div class="app-block">
+          <div class="icon">🐧</div>
+          <div class="info">
+            <h3>Версия для Linux</h3>
+            <p>.deb / .rpm пакеты</p>
+          </div>
+          <a href="#" class="btn">Скачать</a>
+        </div>
+      </div>
+
+      <div class="os-ios os-android os-windows os-macos os-linux" style="display:none;">
+        <p style="color:#6e6e73;">ОС не определена. Доступно для всех платформ.</p>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="divider"></div>
+    <div class="card">
+      <h2>Как использовать</h2>
+
+      <p class="section-label">1. Подключить скрипт</p>
+      <div class="code-block">&lt;script src="os-detector.js"&gt;&lt;/script&gt;</div>
+
+      <p class="section-label" style="margin-top:1rem;">2. Показать контент по ОС (CSS)</p>
+      <div class="code-block">&lt;!-- Скрыть всё по умолчанию --&gt;
+.os-ios, .os-android { display: none; }
+
+&lt;!-- Показать нужное --&gt;
+[data-os="ios"] .os-ios { display: block; }
+[data-os="android"] .os-android { display: block; }</div>
+
+      <p class="section-label" style="margin-top:1rem;">3. Или через JS</p>
+      <div class="code-block">if (OSDetect.is('ios')) {
+  showIosContent();
+}
+
+// или
+if (OSDetect.isIOS()) { ... }
+if (OSDetect.isAndroid()) { ... }
+if (OSDetect.isMobile()) { ... }</div>
+    </div>
+
+    <!-- Raw info -->
+    <div class="card">
+      <h2>Raw: OSDetect.info</h2>
+      <div class="code-block" id="raw-info"></div>
+    </div>
+  </div>
+
+  <script>
+    // Populate demo
+    var info = OSDetect.info;
+
+    // Badges
+    var badges = document.getElementById('badges');
+    badges.innerHTML =
+      '<span class="badge badge-os">OS: ' + info.os + '</span>' +
+      '<span class="badge badge-device">Device: ' + info.device + '</span>' +
+      '<span class="badge badge-platform">Platform: ' + info.platform + '</span>';
+
+    // Table
+    var table = document.getElementById('info-table');
+    var rows = [
+      ['OS', info.os],
+      ['Device', info.device],
+      ['Platform', info.platform],
+      ['Version', info.version || '—'],
+      ['isIOS()', OSDetect.isIOS()],
+      ['isAndroid()', OSDetect.isAndroid()],
+      ['isMobile()', OSDetect.isMobile()],
+      ['isApple()', OSDetect.isApple()],
+      ['User-Agent', navigator.userAgent],
+    ];
+    table.innerHTML = rows.map(function(r) {
+      return '<tr><td>' + r[0] + '</td><td>' + (r[1] === true ? '✅' : r[1] === false ? '❌' : r[1]) + '</td></tr>';
+    }).join('');
+
+    // Raw JSON
+    document.getElementById('raw-info').textContent = JSON.stringify(info, null, 2);
+  </script>
+</body>
+</html>
